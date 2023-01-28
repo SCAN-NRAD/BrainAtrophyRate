@@ -37,7 +37,7 @@ read_stats <- function(dataset, stat_files, sep='\t', base_dir=RESULTS_DIR) {
   return(all_stats)
 }
 
-
+# read DICOM metadata
 metadata_msc <- read.csv(paste(RESULTS_DIR, 'metadata_dicom.csv', sep='/'), header = TRUE, sep = ";", stringsAsFactors=TRUE)
 metadata_msc$SUBJECT_ID <- as.character(metadata_msc$SUBJECT_ID)
 metadata_msc$SOURCE_SUBJECT <- gsub('([^0-9]+[0-9]+)_.*', '\\1', metadata_msc$SUBJECT_ID)
@@ -50,6 +50,7 @@ metadata_msc$InversionTimeRounded <- floor(metadata_msc$InversionTime*10)/10
 metadata_msc$InversionTime <- factor(metadata_msc$InversionTime)
 metadata_msc$MagneticFieldStrength <- factor(round(metadata_msc$MagneticFieldStrength, 1))
 
+# read mapping and clinical data (with EventDate)
 mapping <- read.csv(paste(RESULTS_DIR, 'mapping.csv', sep='/'), header = TRUE, sep = ";", stringsAsFactors=TRUE)
 clinical_data <- read.csv(paste(RESULTS_DIR, 'clinical_data.csv', sep='/'), header = TRUE, sep = ",", stringsAsFactors=TRUE)
 
